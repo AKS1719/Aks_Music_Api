@@ -9,6 +9,6 @@ server.use(express.json());
 server.use('/api/auth',router)
 
 
-server.listen(5000,()=>{
-    console.log('server listening on port 5000')
+server.listen(80,()=>{
+    console.log('server listening on port 80')
 })
