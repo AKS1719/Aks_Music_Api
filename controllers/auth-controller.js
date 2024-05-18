@@ -1,6 +1,5 @@
 
 const fs = require('fs')
-const path = require('path')
 
 var music_data={};
 
@@ -11,8 +10,15 @@ fs.readdir('./resource/music', (eror,files)=>{
     else{
         let i=0;
         files.forEach(file => {
-            let p = '../../../../Server/resource/music/'+file;
-            music_data[i++] = {"song":p}; 
+            let tExt = file.replace('.mp3', '.jpeg');
+            let songPath = `http://localhost/resource/music/${file}`; // URL path for song
+            let imgPath = `http://localhost/resource/img/${tExt}`; // URL path for image
+
+            music_data[i++] = {
+                title: file,
+                song: songPath,
+                img: imgPath
+            };
         });
     }
 });
@@ -22,10 +28,10 @@ fs.readdir('./resource/music', (eror,files)=>{
 const getSongs = async (req,res)=>{
     try{
 
-        res.json(music_data)
+        res.json(music_data);
     }catch(error ){
         console.log(error);
     }
 }
 
-module.exports = {getSongs};
+module.exports = {getSongs,music_data};
